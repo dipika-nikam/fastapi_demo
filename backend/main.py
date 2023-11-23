@@ -52,6 +52,11 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     form.set_user_token(db, email=created_user.email, token=access_token)
     return {"data": {"email": created_user.email, "access_token": access_token, "token_type": "bearer"}}
 
+
+@app.get("/api")
+async def root():
+    return {"message": "Awesome"}
+
 @app.post('/verify_token')
 async def verify_token_route(token: str):
     return verify_token(token)
